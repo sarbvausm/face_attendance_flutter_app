@@ -40,3 +40,14 @@ pubspec.lock
 *.iml
 *.ipr
 *.iws
+# Force-add the gradlew script
+git add --force android/gradlew
+
+# Force-add the gradlew.bat script (for Windows compatibility, good to have)
+git add --force android/gradlew.bat
+
+# Force-add the gradle-wrapper.jar file
+git add --force android/gradle/wrapper/gradle-wrapper.jar
+
+# Add the new .gitignore file itself
+git add .gitignore
