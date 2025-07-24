@@ -1,70 +1,68 @@
+// Use the plugins block for modern plugin application
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("dev.flutter.flutter-gradle-plugin")
+    id "com.android.application"
+    id "org.jetbrains.kotlin.android"
+    id "dev.flutter.flutter-gradle-plugin"
 }
 
 def localProperties = new Properties()
-def localPropertiesFile = rootProject.file("local.properties")
+def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader("UTF-8") { reader ->
+    localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
 }
 
-def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = "1"
+    flutterVersionCode = '1'
 }
 
-def flutterVersionName = localProperties.getProperty("flutter.versionName")
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = "1.0"
+    flutterVersionName = '1.0'
 }
 
 android {
-    namespace = "com.example.face_attendance_app"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    namespace "com.example.face_attendance_app" // You can change this
+    compileSdkVersion 34 // Updated to a more recent SDK version
+    ndkVersion flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = '1.8'
     }
 
     sourceSets {
-        getByName("main") {
-            java.srcDirs("src/main/kotlin")
-        }
+        main.java.srcDirs += 'src/main/kotlin'
     }
 
     defaultConfig {
-        applicationId = "com.example.face_attendance_app"
-        // --- FIX #1: SET MINIMUM SDK AND ENABLE MULTIDEX ---
-        minSdk = 21 
-        multiDexEnabled = true
-        // ---------------------------------------------------
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutterVersionCode.toInt()
-        versionName = flutterVersionName
+        applicationId "com.example.face_attendance_app"
+        // The camera and mlkit plugins require a higher min SDK version
+        minSdkVersion 21
+        targetSdkVersion 34 // Match compileSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("debug")
+            // TODO: Add your own signing config for the release build.
+            // See https://docs.flutter.dev/deployment/android#signing-the-app
+            signingConfig signingConfigs.debug
         }
     }
 }
 
 flutter {
-    source = "../.."
+    source '../..'
 }
 
 dependencies {
-    // --- FIX #2: ADD MULTIDEX DEPENDENCY ---
-    implementation("androidx.multidex:multidex:2.0.1")
+    // No extra dependencies needed here for this basic setup
 }
