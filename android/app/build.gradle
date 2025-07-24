@@ -24,8 +24,8 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.face_attendance_app" // You can change this
-    compileSdkVersion 34 // Updated to a more recent SDK version
+    namespace "com.example.face_attendance_app"
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -43,9 +43,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.face_attendance_app"
-        // The camera and mlkit plugins require a higher min SDK version
         minSdkVersion 21
-        targetSdkVersion 34 // Match compileSdkVersion
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
